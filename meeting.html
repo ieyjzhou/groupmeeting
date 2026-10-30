@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郑州大学 计算机与工业工程课题组 · 组会汇报模板</title>
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{
+    --zzu-blue:#1a3a8f;        /* 郑州大学校色蓝 */
+    --zzu-blue-light:#e8edf9;
+    --ink:#1f2433;
+    --muted:#6b7280;
+    --line:#e3e7ef;
+    --bg:#f7f8fb;
+    --card:#ffffff;
+    --accent:#c8102e;          /* 强调红 */
+    --ok:#1a7f54;
+    --warn:#b45309;
+    --placeholder:#9aa3b2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;font-size:16px;
+  }
+  /* 顶栏 */
+  header.topbar{
+    background:linear-gradient(120deg,var(--zzu-blue) 0%,#2c52b3 100%);
+    color:#fff;padding:22px 38px;display:flex;align-items:center;gap:18px;
+    position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+  header.topbar .logo-box{
+    background:#fff;border-radius:8px;padding:2px 7px;height:72px;display:flex;align-items:center;
+    box-shadow:0 1px 4px rgba(0,0,0,.18);flex:0 0 auto;
+  }
+  header.topbar .logo-box img{height:66px;display:block;}
+  /* 中英文切换按钮 */
+  header.topbar .lang-toggle{
+    display:flex;gap:0;margin-left:auto;border-radius:8px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.55);flex:0 0 auto;
+  }
+  header.topbar .lang-toggle button{
+    background:transparent;color:#d8e0f5;border:none;padding:7px 16px;font-size:14px;cursor:pointer;
+    font-family:inherit;transition:background .15s,color .15s;
+  }
+  header.topbar .lang-toggle button.active{background:#fff;color:var(--zzu-blue);font-weight:600;}
+  header.topbar .lang-toggle button:hover:not(.active){background:rgba(255,255,255,.85);color:var(--zzu-blue);}
+  /* 封面组徽（竖版） */
+  .cover-row{display:flex;gap:24px;align-items:stretch;margin-top:14px;}
+  .cover-logo{
+    flex:0 0 185px;background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px;text-align:center;align-self:center;box-shadow:0 1px 3px rgba(20,30,60,.05);
+  }
+  .cover-logo img{width:100%;height:auto;display:block;}
+  .cover-logo .cap{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.5px;}
+  .cover-main{flex:1;min-width:0;}
+  header.topbar .title{display:flex;flex-direction:column;justify-content:center;}
+  header.topbar h1{margin:0;font-size:32px;line-height:1.1;font-weight:700;letter-spacing:.5px;}
+  header.topbar .sub{font-size:14px;opacity:.85;margin-top:4px;letter-spacing:.3px;}
+  /* 布局 */
+  .wrap{display:flex;max-width:1280px;margin:0 auto;}
+  nav.toc{
+    width:248px;flex:0 0 248px;align-self:flex-start;position:sticky;top:120px;
+    height:calc(100vh - 120px);overflow:auto;padding:22px 14px;border-right:1px solid var(--line);
+  }
+  nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-size:14px;margin-bottom:2px;}
+  nav.toc a:hover{background:var(--zzu-blue-light);color:var(--zzu-blue);}
+  nav.toc a .num{display:inline-block;width:22px;color:var(--zzu-blue);font-weight:600;}
+  main{flex:1;padding:30px 40px 80px;min-width:0;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:22px;box-shadow:0 1px 3px rgba(20,30,60,.04);min-height:660px;}
+  h2.sec{font-size:22px;margin:0 0 4px;color:var(--zzu-blue);display:flex;align-items:center;gap:10px;}
+  h2.sec .tag{font-size:12px;background:var(--zzu-blue-light);color:var(--zzu-blue);padding:2px 10px;border-radius:20px;font-weight:500;}
+  h3{font-size:17px;color:var(--ink);margin:22px 0 8px;border-left:4px solid var(--accent);padding-left:10px;}
+  p{margin:10px 0;}
+  ul,ol{margin:10px 0;padding-left:22px;}
+  li{margin:6px 0;}
+  .muted{color:var(--muted);}
+  .placeholder{
+    background:#fbfcfe;border:1px dashed var(--placeholder);border-radius:10px;
+    padding:12px 16px;color:var(--placeholder);font-style:italic;margin:12px 0;min-height:90px;
+  }
+  .example{
+    background:var(--zzu-blue-light);border-left:4px solid var(--zzu-blue);
+    border-radius:0 10px 10px 0;padding:14px 18px;margin:12px 0;min-height:150px;
+  }
+  .example .elabel{display:inline-block;font-size:12px;font-weight:600;color:var(--zzu-blue);background:#fff;border:1px solid var(--zzu-blue);border-radius:6px;padding:1px 8px;margin-bottom:8px;}
+  .gap-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px;}
+  .gap-table th,.gap-table td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+  .gap-table th{background:var(--zzu-blue);color:#fff;font-weight:600;}
+  .gap-table tr:nth-child(even) td{background:#fafbff;}
+  .badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;font-weight:600;}
+  .badge.gap{background:#fdecea;color:var(--accent);}
+  .badge.inno{background:#e7f6ee;color:var(--ok);}
+  .formula{background:#fbfcfe;border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:12px 0;overflow-x:auto;}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0;}
+  .meta .item{background:var(--zzu-blue-light);border-radius:10px;padding:12px 14px;}
+  .meta .item .k{font-size:12px;color:var(--muted);}
+  .meta .item .v{font-size:15px;font-weight:600;color:var(--zzu-blue);margin-top:2px;}
+  .ref{font-size:14px;padding:8px 0;border-bottom:1px solid var(--line);}
+  .ref:last-child{border-bottom:none;}
+  .ref .cite{color:var(--accent);font-weight:600;margin-right:6px;}
+  .banner{background:#fff7e6;border:1px solid #ffe0a3;border-radius:12px;padding:14px 18px;margin:0 0 22px;font-size:14.5px;color:var(--warn);}
+  .banner b{color:var(--warn);}
+  .checklist{list-style:none;padding-left:0;}
+  .checklist li{padding:6px 0;border-bottom:1px dashed var(--line);}
+  .checklist input{margin-right:8px;}
+  .tip{font-size:13px;color:var(--muted);background:#f4f6fb;border-radius:8px;padding:8px 12px;margin:8px 0;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:900px){nav.toc{display:none}.two{grid-template-columns:1fr}main{padding:20px}}
+  .footer{text-align:center;color:var(--muted);font-size:12px;padding:30px;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo-box"><img src="cieglogo1.png" alt="CIEG · 郑州大学管理学院 计算机与工业工程课题组（横版）"></div>
+  <div class="title">
+    <h1 id="t-h1">郑州大学 · 计算机与工业工程课题组</h1>
+    <div class="sub" id="t-sub">组会汇报模板 (Group Meeting Template) — 文献精读 / 硕士论文进展通用版</div>
+  </div>
+  <div class="lang-toggle" id="langToggle">
+    <button type="button" data-lang="zh" class="active">中</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <a href="#cover"><span class="num">0</span><span class="lbl" id="n0">汇报信息</span></a>
+  <a href="#basic"><span class="num">1</span><span class="lbl" id="n1">论文/课题基本信息</span></a>
+  <a href="#problem"><span class="num">2</span><span class="lbl" id="n2">研究背景</span></a>
+  <a href="#gap"><span class="num">3</span><span class="lbl" id="n3">研究综述</span></a>
+  <a href="#innovation"><span class="num">4</span><span class="lbl" id="n4">创新点</span></a>
+  <a href="#objective"><span class="num">5</span><span class="lbl" id="n5">研究目标与贡献</span></a>
+  <a href="#problemdesc"><span class="num">6</span><span class="lbl" id="n6">问题描述</span></a>
+  <a href="#method"><span class="num">7</span><span class="lbl" id="n7">核心方法</span></a>
+  <a href="#exp"><span class="num">8</span><span class="lbl" id="n8">实验与结果</span></a>
+  <a href="#discuss"><span class="num">9</span><span class="lbl" id="n9">讨论与下一步</span></a>
+  <a href="#ref"><span class="num">10</span><span class="lbl" id="n10">参考文献</span></a>
+  <a href="#howto"><span class="num">11</span><span class="lbl" id="n11">组会汇报自检清单</span></a>
+</nav>
+
+<main>
+
+<!-- 0 封面 -->
+<section class="card" id="cover">
+  <h2 class="sec"><span class="lbl" id="s0">0 · 汇报信息 </span><span class="tag">Cover</span></h2>
+  <div class="cover-row">
+    <div class="cover-logo">
+      <img src="cieglogo2.png" alt="CIEG 郑州大学管理学院 计算机与工业工程课题组（竖版组徽）">
+      <div class="cap" id="t-cap">CIEG · 组徽</div>
+    </div>
+    <div class="cover-main">
+  <div class="meta">
+    <div class="item"><div class="k" id="m0">汇报主题</div><div class="v">ALSP：年龄驱动批量问题研究</div></div>
+    <div class="item"><div class="k" id="m1">汇报人</div><div class="v">【姓名】</div></div>
+    <div class="item"><div class="k" id="m2">导师</div><div class="v">【导师姓名】</div></div>
+    <div class="item"><div class="k" id="m3">日期</div><div class="v">2026-MM-DD</div></div>
+    <div class="item"><div class="k" id="m4">汇报类型</div><div class="v">文献精读 / 论文进展</div></div>
+    <div class="item"><div class="k" id="m5">课题组</div><div class="v">CIEG · 计算机与工业工程课题组</div></div>
+  </div>
+  <div class="placeholder" id="b0pl">一句话摘要（电梯演讲，30 秒内讲清）：本汇报介绍/研究 ______ 问题，针对 ______ 不足，提出 ______ 方法，核心结论是 ______。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 基本信息 -->
+<section class="card" id="basic">
+  <h2 class="sec"><span class="lbl" id="s1">1 · 论文 / 课题基本信息 </span><span class="tag">Paper Info</span></h2>
+  <div class="example" id="b1ex">
+    <span class="elabel">示例（文献精读）</span>
+    <ul>
+      <li><b>论文标题：</b>An Age-Driven Lot-Sizing Model for Perishable and Aging-Sensitive Supply Chains</li>
+      <li><b>作者 / 单位：</b>Y. Zhou, Zhengzhou University（自引示例，实际请填原文献）</li>
+      <li><b>发表去向：</b>目标期刊 INFORMS Management Science（投稿级）</li>
+      <li><b>关键词：</b>Lot-Sizing · Aging Inventory · Benders Decomposition · Mixed-Integer Programming</li>
+      <li><b>一句话定位：</b>在经典能力约束批量问题（CLSP）中引入"批次年龄"状态，将质量/合规惩罚显式纳入生产计划。</li>
+    </ul>
+  </div>
+  <div class="placeholder" id="b1pl">若是"汇报自己的硕士论文"，请改为：论文题目、研究问题、技术路线、当前进度（第几章/做到哪一步）、待解决难点。</div>
+</section>
+
+<!-- 2 研究背景 -->
+<section class="card" id="problem">
+  <h2 class="sec"><span class="lbl" id="s2">2 · 研究背景 </span><span class="tag">Background</span></h2>
+  <h3 id="h321">2.1 现实/理论背景</h3>
+  <div class="example" id="b21ex">
+    <span class="elabel">示例</span>
+    <p>在生鲜、医药、半导体等场景中，库存物品的价值与合规性随"年龄"（自生产/入库至使用的时长）衰减。传统批量问题（Lot-Sizing）以成本或时间最小化为目标，<b>隐含假设物品"不老"</b>——一旦老化导致报废或降级，原最优计划即失效。因此需要在生产计划中显式管理年龄。</p>
+  </div>
+</section>
+
+<!-- 3 Research Gap -->
+<section class="card" id="gap">
+  <h2 class="sec"><span class="lbl" id="s3">3 · 研究综述（Literature Review） </span><span class="tag">Review</span></h2>
+  <p class="muted" id="b3note">说明：先列出现有文献做到了什么，再指出"还没有人做/做得不够"的地方——这正是你工作的立足点。</p>
+  <table class="gap-table">
+    <thead id="b3th"><tr><th style="width:34%">现有研究已覆盖</th><th style="width:33%">存在的不足 / 空白</th><th style="width:33%">本文如何补上</th></tr></thead>
+    <tbody id="b3tb">
+      <tr>
+        <td>经典 Lot-Sizing（Wagner–Whitin、CLSP）已成熟，求解算法完备</td>
+        <td><span class="badge gap">Gap</span> 假设物品无老化，质量/价值恒定</td>
+        <td>引入年龄状态变量与年龄驱动约束</td>
+      </tr>
+      <tr>
+        <td>易逝品/老化库存（perishable inventory）研究出库 FIFO/LIFO 策略</td>
+        <td><span class="badge gap">Gap</span> 多在单周期或固定生产计划下，未与多周期生产计划集成</td>
+        <td>将年龄管理嵌入生产-库存联合决策</td>
+      </tr>
+      <tr>
+        <td>Benders 分解等大规模 MILP 求解技术成熟</td>
+        <td><span class="badge gap">Gap</span> 缺少针对年龄约束结构的专用有效不等式与切平面</td>
+        <td>提出 C0/C1/C3/C* 切平面族增强</td>
+      </tr>
+      <tr>
+        <td>存在少量"新鲜度"启发式规则</td>
+        <td><span class="badge gap">Gap</span> 缺乏"年龄—成本—能力"三者权衡的结构性理论分析</td>
+        <td>给出下界、紧化与消融实验验证</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="placeholder" id="b3pl">替换为你课题的真实文献脉络；建议引用 5–8 篇关键文献支撑每一条 Gap。</div>
+</section>
+
+<!-- 4 创新点 -->
+<section class="card" id="innovation">
+  <h2 class="sec"><span class="lbl" id="s4">4 · 创新点 </span><span class="tag">Innovation</span></h2>
+  <div class="example" id="b5ex">
+    <span class="elabel">示例（4 条贡献式创新）</span>
+    <ul>
+      <li><span class="badge inno">Inno 1</span> <b>建模创新：</b>提出"批次年龄态"（age state）与年龄驱动约束族，将年龄作为一等决策变量纳入 CLSP 框架。</li>
+      <li><span class="badge inno">Inno 2</span> <b>理论创新：</b>推导年龄约束的等价紧化形式与有效不等式，显著收紧 LP 界。</li>
+      <li><span class="badge inno">Inno 3</span> <b>算法创新：</b>设计基于 Benders 分解（主/子问题）的精确算法，并叠加 C0/C1/C3/C* 切平面族处理大规模实例。</li>
+      <li><span class="badge inno">Inno 4</span> <b>实证创新：</b>构建算例库与消融表，诚实呈现年龄惩罚对成本与计划结构的影响（含非预期/负面结果）。</li>
+    </ul>
+  </div>
+  <div class="placeholder" id="b5pl">创新点写"解决了什么别人没解决的问题"，不要写"用了深度学习"这种手段式描述。每条创新最好能对应第 3 节的某一条 Gap。</div>
+</section>
+
+<!-- 5 研究目标与贡献 -->
+<section class="card" id="objective">
+  <h2 class="sec"><span class="lbl" id="s5">5 · 研究目标与贡献 </span><span class="tag">Objective</span></h2>
+  <div class="example" id="b4ex">
+    <span class="elabel">示例</span>
+    <ol>
+      <li>建立 ALSP 的年龄驱动 MILP 模型，统一刻画生产、库存与年龄演化；</li>
+      <li>刻画年龄约束的紧结构，提升线性松弛下界；</li>
+      <li>设计可扩展的精确算法（Benders + 切平面族）；</li>
+      <li>通过算例与消融实验量化年龄惩罚对计划结构的影响。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6 问题描述 -->
+<section class="card" id="problemdesc">
+  <h2 class="sec"><span class="lbl" id="s6">6 · 问题描述 </span><span class="tag">Problem</span></h2>
+  <h3 id="h61">6.1 研究问题（Research Question）</h3>
+  <div class="example" id="b22ex">
+    <span class="elabel">示例</span>
+    <p>如何在满足多周期需求与生产能力约束的前提下，<b>联合决策生产批量、库存持有与出库次序</b>，使"成本 + 年龄惩罚"总体最优？并给出可扩展至大规模实例的精确/近似算法。</p>
+  </div>
+  <div class="placeholder" id="b2pl">用 1–2 句话写出你的 RQ，并配一张"问题示意图"（可用 SVG/截图），说明输入、决策、输出分别是什么。</div>
+</section>
+
+<!-- 6 核心方法 -->
+<section class="card" id="method">
+  <h2 class="sec"><span class="lbl" id="s7">7 · 核心方法 </span><span class="tag">Method</span></h2>
+
+  <h3 id="h361">7.1 模型：符号与假设</h3>
+  <div class="example" id="b61ex">
+    <span class="elabel">示例 · 符号表（节选）</span>
+    <ul>
+      <li>$t\in\mathcal{T}$：周期集合；$i\in\mathcal{I}$：产品/批次；$d_t$：周期 $t$ 需求</li>
+      <li>$x_{it}$：周期 $t$ 生产产品 $i$ 的量；$y_{it}\in\{0,1\}$：是否生产</li>
+      <li>$a_{it}$：批次 $i$ 在周期 $t$ 的"年龄"；$s_{it}$：库存持有量</li>
+      <li>参数：$C^{\max}_t$ 产能，$\alpha$ 单位年龄惩罚，$A^{\max}$ 最大容许年龄</li>
+    </ul>
+  </div>
+
+  <h3 id="h362">7.2 主模型（目标与关键约束）</h3>
+  <div class="formula">
+    $$ \min \sum_{t}\Big(\sum_i (p_i x_{it} + h_i s_{it}) + \alpha \sum_i a_{it} s_{it}\Big) $$
+    $$ \text{s.t.}\quad s_{i,t-1} + x_{it} - \text{out}_{it} = s_{it} \quad \forall i,t \tag{1}\ \text{库存平衡} $$
+    $$ a_{it} = a_{i,t-1} + 1 \quad \text{（若 } s_{it}>0\text{）} \tag{2}\ \text{年龄演化} $$
+    $$ a_{it} \le A^{\max} \quad \text{（出库前）} \tag{3}\ \text{年龄上限} $$
+    $$ \sum_i x_{it} \le C^{\max}_t,\quad x_{it}\le M y_{it} \tag{4}\ \text{产能/固定成本} $$
+  </div>
+  <div class="tip" id="b6tip">组会讲解建议：先讲"为什么需要约束 (2)(3)"——这是相对于经典 CLSP 的<strong>唯一新增结构</strong>，也是方法核心。</div>
+
+  <h3 id="h363">7.3 求解算法</h3>
+  <div class="example" id="b63ex">
+    <span class="elabel">示例 · Benders 分解 + 切平面族</span>
+    <ul>
+      <li><b>主问题：</b>生产/年龄决策（整数+部分连续），接收子问题返回的 Benders 割；</li>
+      <li><b>子问题：</b>给定主问题解，校验年龄/库存可行性并返回对偶割；</li>
+      <li><b>增强：</b>叠加 C0（容量）、C1（单周期）、C3（年龄耦合）、C*（最优性）切平面族加速收敛。</li>
+    </ul>
+  </div>
+
+  <div class="placeholder" id="b6pl">若用机器学习/启发式，请在此给出"伪代码（algorithm2e 风格）+ 复杂度 + 为什么比基线好"三件套。</div>
+</section>
+
+<!-- 7 实验 -->
+<section class="card" id="exp">
+  <h2 class="sec"><span class="lbl" id="s8">8 · 实验与结果 </span><span class="tag">Experiments</span></h2>
+  <div class="example">
+    <span class="elabel" id="b7el">示例 · 消融表（节选）</span>
+    <table class="gap-table">
+      <thead id="b7th"><tr><th>配置</th><th>平均 GAP(%)</th><th>求解时间(s)</th><th>备注</th></tr></thead>
+      <tbody id="b7tb">
+        <tr><td>Plain MILP (CBC)</td><td>—</td><td>超时(&gt;1000 bin)</td><td>CBC 大规模挂起</td></tr>
+        <tr><td>+ Benders</td><td>0.0</td><td>42</td><td>精确</td></tr>
+        <tr><td>+ C0/C1/C3</td><td>0.0</td><td>11</td><td>约 4× 加速</td></tr>
+        <tr><td>+ C*</td><td>0.0</td><td>7</td><td>最优性割</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" id="b7note" style="margin:6px 0 0">诚实说明：在部分小规模实例中，最佳 FIFO 规则与精确解差距&lt;2%，说明年龄惩罚较小时简单规则已够用——这是非预期但重要的结论。</p>
+  </div>
+  <div class="placeholder" id="b7pl">放 1–2 张核心图（收敛曲线 / 敏感性分析 / 对比柱状图，柱宽按真实数值成比例）。结论要诚实，包含负面结果。</div>
+</section>
+
+<!-- 8 讨论 -->
+<section class="card" id="discuss">
+  <h2 class="sec"><span class="lbl" id="s9">9 · 讨论与下一步 </span><span class="tag">Discussion</span></h2>
+  <div class="two">
+    <div class="example" id="b8lim"><span class="elabel">示例 · 局限</span>
+      <ul>
+        <li>当前假设确定性需求，未考虑需求不确定性；</li>
+        <li>切平面族对极端年龄分布敏感，参数鲁棒性待研究。</li>
+      </ul>
+    </div>
+    <div class="example" id="b8next"><span class="elabel">示例 · 下一步</span>
+      <ul>
+        <li>扩展至随机需求下的两阶段 ALSP；</li>
+        <li>探索 RL 在跨布局自适应调度中的迁移（与郑煤机项目联动）。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="placeholder" id="b8pl">组会常被问："这方法在什么情况下会失效？"——主动讲局限，比被问到再答更显掌控力。</div>
+</section>
+
+<!-- 9 参考文献 -->
+<section class="card" id="ref">
+  <h2 class="sec"><span class="lbl" id="s10">10 · 参考文献 </span><span class="tag">References</span></h2>
+  <div class="ref"><span class="cite">[1]</span> Wagner, H. M., & Whitin, T. M. (1958). Dynamic version of the economic lot size model. <i>Management Science</i>, 5(1), 89–96.</div>
+  <div class="ref"><span class="cite">[2]</span> Federgruen, A., & Tzur, M. (1991). A simple forward algorithm to solve general dynamic lot sizing models. <i>Operations Research</i>, 41(3), 464–474.</div>
+  <div class="ref"><span class="cite">[3]</span> Salomon, M. (1991). <i>Deterministic Lotsizing Models</i>. Springer.</div>
+  <div class="ref"><span class="cite">[4]</span> Benders, J. F. (1962). Partitioning procedures for solving mixed-variables programming problems. <i>Numerische Mathematik</i>, 4, 238–252.</div>
+  <div class="ref"><span class="cite">[5]</span> Nahmias, S. (1982). Perishable inventory theory: A review. <i>Operations Research</i>, 30(4), 680–708.</div>
+  <div class="ref"><span class="cite">[6]</span> Goyal, S. K., & Giri, B. C. (2001). Recent trends in modeling of deteriorating inventory. <i>European Journal of Operational Research</i>, 134(1), 1–16.</div>
+  <div class="ref"><span class="cite">[7]</span> Chazan, D., & Gal, S. (1977). Production and inventory control under age-dependent random yield. <i>Operations Research</i>, 25(1), 125–136.</div>
+  <div class="ref"><span class="cite">[8]</span> Zhou, Y. et al. (2025). Capacity tokenization and co-loaded shipment optimization under China–Europe Railway Express competition. <i>(working paper)</i>.</div>
+  <div class="tip" id="b9tip">示例文献仅作排版示范，请替换为你真正引用、且组内可复现的文献；建议用 BibTeX 统一导出，避免格式错乱。</div>
+</section>
+
+<!-- 10 自检 -->
+<section class="card" id="howto">
+  <h2 class="sec"><span class="lbl" id="s11">11 · 组会汇报自检清单 </span><span class="tag">Checklist</span></h2>
+  <ul class="checklist" id="b10ul">
+    <li><input type="checkbox"> 30 秒电梯演讲能讲清"问题—方法—结论"</li>
+    <li><input type="checkbox"> Research Gap 有文献支撑，且每条对应一个创新点</li>
+    <li><input type="checkbox"> 核心方法能让听众"听明白为什么有效"，而非只放公式</li>
+    <li><input type="checkbox"> 实验结论诚实（含负面/非预期结果）</li>
+    <li><input type="checkbox"> 图表的柱宽/比例严格对应真实数值</li>
+    <li><input type="checkbox"> 参考文献格式统一、可追溯</li>
+    <li><input type="checkbox"> 主动说明局限与下一步，准备好被追问</li>
+  </ul>
+  <div class="tip" id="b10tip">模板文件：本 HTML 可直接在浏览器打开汇报，也可导出 PDF。把蓝底示例框替换为你的内容、删除灰色占位框即可。</div>
+</section>
+
+<div class="footer" id="t-footer">郑州大学 · 计算机与工业工程课题组 — 组会汇报模板（通用版） · 可直接复制复用</div>
+
+</main>
+</div>
+
+<script>
+  // ---- 中英文切换 (Bilingual toggle) ----
+  var I18N = {
+    "t-h1":   {zh:"郑州大学 · 计算机与工业工程课题组", en:"Zhengzhou University · CIEG Group"},
+    "t-sub":  {zh:"组会汇报模板 (Group Meeting Template) — 文献精读 / 硕士论文进展通用版",
+               en:"Group Meeting Template — Paper Review / Thesis Progress"},
+    "t-banner":{zh:'<b>使用说明：</b>本模板已用 <b>Age-driven Lot-Sizing Problem (ALSP, 年龄驱动批量问题)</b> 作为示例填充，所有 <span style="background:#e8edf9;padding:1px 6px;border-radius:4px;color:#1a3a8f;font-weight:600;">蓝底示例框</span> 均可直接替换为你自己的课题。灰色虚线框为待填占位提示。',
+               en:'<b>Usage:</b> This template is filled with an <b>Age-driven Lot-Sizing Problem (ALSP)</b> example. Replace every <span style="background:#e8edf9;padding:1px 6px;border-radius:4px;color:#1a3a8f;font-weight:600;">blue box</span> with your own topic; gray dashed boxes are placeholders.', html:true},
+    "t-footer":{zh:"郑州大学 · 计算机与工业工程课题组 — 组会汇报模板（通用版） · 可直接复制复用",
+               en:"Zhengzhou University · CIEG Group — Group Meeting Template · reusable"},
+    "t-cap":  {zh:"CIEG · 组徽", en:"CIEG · Emblem"},
+    "n0":{zh:"汇报信息",en:"Meeting Info"},
+    "n1":{zh:"论文/课题基本信息",en:"Paper / Thesis Info"},
+    "n2":{zh:"研究背景",en:"Background"},
+    "n3":{zh:"研究综述",en:"Literature Review"},
+    "n4":{zh:"创新点",en:"Innovations"},
+    "n5":{zh:"研究目标与贡献",en:"Objectives & Contributions"},
+    "n6":{zh:"问题描述",en:"Problem Description"},
+    "n7":{zh:"核心方法",en:"Methodology"},
+    "n8":{zh:"实验与结果",en:"Experiments"},
+    "n9":{zh:"讨论与下一步",en:"Discussion"},
+    "n10":{zh:"参考文献",en:"References"},
+    "n11":{zh:"组会汇报自检清单",en:"Self-Check List"},
+    "s0":{zh:"0 · 汇报信息 ",en:"0 · Meeting Information "},
+    "s1":{zh:"1 · 论文 / 课题基本信息 ",en:"1 · Paper / Thesis Basics "},
+    "s2":{zh:"2 · 研究背景 ",en:"2 · Background "},
+    "s3":{zh:"3 · 研究综述（Literature Review） ",en:"3 · Literature Review "},
+    "s4":{zh:"4 · 创新点 ",en:"4 · Innovations "},
+    "s5":{zh:"5 · 研究目标与贡献 ",en:"5 · Objectives & Contributions "},
+    "s6":{zh:"6 · 问题描述 ",en:"6 · Problem Description "},
+    "s7":{zh:"7 · 核心方法 ",en:"7 · Methodology "},
+    "s8":{zh:"8 · 实验与结果 ",en:"8 · Experiments & Results "},
+    "s9":{zh:"9 · 讨论与下一步 ",en:"9 · Discussion & Next Steps "},
+    "s10":{zh:"10 · 参考文献 ",en:"10 · References "},
+    "s11":{zh:"11 · 组会汇报自检清单 ",en:"11 · Self-Check List "},
+    "m0":{zh:"汇报主题",en:"Topic"},
+    "m1":{zh:"汇报人",en:"Presenter"},
+    "m2":{zh:"导师",en:"Advisor"},
+    "m3":{zh:"日期",en:"Date"},
+    "m4":{zh:"汇报类型",en:"Type"},
+    "m5":{zh:"课题组",en:"Group"},
+    "b0pl":{zh:"一句话摘要（电梯演讲，30 秒内讲清）：本汇报介绍/研究 ______ 问题，针对 ______ 不足，提出 ______ 方法，核心结论是 ______。",
+            en:"One-sentence abstract (elevator pitch, within 30s): This talk introduces/studies the problem of ______, addresses the gap of ______, proposes the method ______, and concludes that ______.", html:false},
+    "b1ex":{zh:'<span class="elabel">示例（文献精读）</span><ul><li><b>论文标题：</b>An Age-Driven Lot-Sizing Model for Perishable and Aging-Sensitive Supply Chains</li><li><b>作者 / 单位：</b>Y. Zhou, Zhengzhou University（自引示例，实际请填原文献）</li><li><b>发表去向：</b>目标期刊 INFORMS Management Science（投稿级）</li><li><b>关键词：</b>Lot-Sizing · Aging Inventory · Benders Decomposition · Mixed-Integer Programming</li><li><b>一句话定位：</b>在经典能力约束批量问题（CLSP）中引入“批次年龄”状态，将质量/合规惩罚显式纳入生产计划。</li></ul>',
+            en:'<span class="elabel">Example (paper review)</span><ul><li><b>Title:</b> An Age-Driven Lot-Sizing Model for Perishable and Aging-Sensitive Supply Chains</li><li><b>Authors / Affiliation:</b> Y. Zhou, Zhengzhou University (illustrative; fill in the original reference)</li><li><b>Target venue:</b> INFORMS Management Science (submission-level)</li><li><b>Keywords:</b> Lot-Sizing · Aging Inventory · Benders Decomposition · Mixed-Integer Programming</li><li><b>One-line positioning:</b> Introduce a “batch age” state into the classic Capacitated Lot-Sizing Problem (CLSP) to explicitly embed quality/compliance penalties into the production plan.</li></ul>', html:true},
+    "b1pl":{zh:"若是“汇报自己的硕士论文”，请改为：论文题目、研究问题、技术路线、当前进度（第几章/做到哪一步）、待解决难点。",
+            en:"If presenting your own master’s thesis, replace with: thesis title, research question, technical roadmap, current progress (which chapter / how far), and open challenges.", html:false},
+    "b21ex":{zh:'<span class="elabel">示例</span><p>在生鲜、医药、半导体等场景中，库存物品的价值与合规性随“年龄”（自生产/入库至使用的时长）衰减。传统批量问题（Lot-Sizing）以成本或时间最小化为目标，<b>隐含假设物品“不老”</b>——一旦老化导致报废或降级，原最优计划即失效。因此需要在生产计划中显式管理年龄。</p>',
+             en:'<span class="elabel">Example</span><p>In fresh-food, pharmaceutical, and semiconductor settings, the value and compliance of inventory items decay with their “age” (time from production/receipt to use). Classic lot-sizing minimizes cost or time and <b>implicitly assumes items do not age</b>—once aging causes scrap or downgrade, the original optimal plan breaks down. Age must therefore be managed explicitly in production planning.</p>', html:true},
+    "b22ex":{zh:'<span class="elabel">示例</span><p>如何在满足多周期需求与生产能力约束的前提下，<b>联合决策生产批量、库存持有与出库次序</b>，使“成本 + 年龄惩罚”总体最优？并给出可扩展至大规模实例的精确/近似算法。</p>',
+             en:'<span class="elabel">Example</span><p>How to <b>jointly decide production lot sizes, inventory holding, and issue sequence</b> under multi-period demand and capacity constraints so as to optimize the total “cost + age penalty”, and to provide exact/approximate algorithms that scale to large instances?</p>', html:true},
+    "b2pl":{zh:"用 1–2 句话写出你的 RQ，并配一张“问题示意图”（可用 SVG/截图），说明输入、决策、输出分别是什么。",
+            en:"State your RQ in 1–2 sentences and include a “problem schematic” (SVG/screenshot) clarifying inputs, decisions, and outputs.", html:false},
+    "b3note":{zh:"说明：先列出现有文献做到了什么，再指出“还没有人做/做得不够”的地方——这正是你工作的立足点。",
+              en:"Note: First list what existing literature has achieved, then point out what “nobody has done / is insufficient”—this is exactly where your work stands.", html:false},
+    "b3th":{zh:'<tr><th style="width:34%">现有研究已覆盖</th><th style="width:33%">存在的不足 / 空白</th><th style="width:33%">本文如何补上</th></tr>',
+            en:'<tr><th style="width:34%">What existing work covers</th><th style="width:33%">Gap / blank</th><th style="width:33%">How this work fills it</th></tr>', html:true},
+    "b3tb":{zh:'<tr><td>经典 Lot-Sizing（Wagner–Whitin、CLSP）已成熟，求解算法完备</td><td><span class="badge gap">Gap</span> 假设物品无老化，质量/价值恒定</td><td>引入年龄状态变量与年龄驱动约束</td></tr><tr><td>易逝品/老化库存（perishable inventory）研究出库 FIFO/LIFO 策略</td><td><span class="badge gap">Gap</span> 多在单周期或固定生产计划下，未与多周期生产计划集成</td><td>将年龄管理嵌入生产-库存联合决策</td></tr><tr><td>Benders 分解等大规模 MILP 求解技术成熟</td><td><span class="badge gap">Gap</span> 缺少针对年龄约束结构的专用有效不等式与切平面</td><td>提出 C0/C1/C3/C* 切平面族增强</td></tr><tr><td>存在少量“新鲜度”启发式规则</td><td><span class="badge gap">Gap</span> 缺乏“年龄—成本—能力”三者权衡的结构性理论分析</td><td>给出下界、紧化与消融实验验证</td></tr>',
+            en:'<tr><td>Classic lot-sizing (Wagner–Whitin, CLSP) is mature with complete solution algorithms</td><td><span class="badge gap">Gap</span> Assumes items do not age; quality/value stay constant</td><td>Introduce age-state variables and age-driven constraints</td></tr><tr><td>Perishable/aging inventory studies FIFO/LIFO issue policies</td><td><span class="badge gap">Gap</span> Mostly single-period or fixed production plans, not integrated with multi-period planning</td><td>Embed age management into joint production-inventory decisions</td></tr><tr><td>Large-scale MILP techniques such as Benders decomposition are mature</td><td><span class="badge gap">Gap</span> Lack of dedicated valid inequalities / cuts for the age structure</td><td>Propose C0/C1/C3/C* cutting-plane families</td></tr><tr><td>A few “freshness” heuristic rules exist</td><td><span class="badge gap">Gap</span> No structural theory trading off age–cost–capacity</td><td>Provide lower bounds, tightening, and ablation validation</td></tr>', html:true},
+    "b3pl":{zh:"替换为你课题的真实文献脉络；建议引用 5–8 篇关键文献支撑每一条 Gap。",
+            en:"Replace with the real literature map of your topic; cite 5–8 key references to support each gap.", html:false},
+    "b4ex":{zh:'<span class="elabel">示例</span><ol><li>建立 ALSP 的年龄驱动 MILP 模型，统一刻画生产、库存与年龄演化；</li><li>刻画年龄约束的紧结构，提升线性松弛下界；</li><li>设计可扩展的精确算法（Benders + 切平面族）；</li><li>通过算例与消融实验量化年龄惩罚对计划结构的影响。</li></ol>',
+            en:'<span class="elabel">Example</span><ol><li>Build an age-driven MILP model for ALSP that unifies production, inventory, and age evolution;</li><li>Characterize the tight structure of the age constraints to improve the LP relaxation bound;</li><li>Design a scalable exact algorithm (Benders + cutting planes);</li><li>Quantify, via instances and ablations, how the age penalty reshapes the plan structure.</li></ol>', html:true},
+    "b5ex":{zh:'<span class="elabel">示例（4 条贡献式创新）</span><ul><li><span class="badge inno">Inno 1</span> <b>建模创新：</b>提出“批次年龄态”（age state）与年龄驱动约束族，将年龄作为一等决策变量纳入 CLSP 框架。</li><li><span class="badge inno">Inno 2</span> <b>理论创新：</b>推导年龄约束的等价紧化形式与有效不等式，显著收紧 LP 界。</li><li><span class="badge inno">Inno 3</span> <b>算法创新：</b>设计基于 Benders 分解（主/子问题）的精确算法，并叠加 C0/C1/C3/C* 切平面族处理大规模实例。</li><li><span class="badge inno">Inno 4</span> <b>实证创新：</b>构建算例库与消融表，诚实呈现年龄惩罚对成本与计划结构的影响（含非预期/负面结果）。</li></ul>',
+            en:'<span class="elabel">Example (4 contribution-style innovations)</span><ul><li><span class="badge inno">Inno 1</span> <b>Modeling:</b> Propose a “batch age state” and age-driven constraint family, making age a first-class decision variable within the CLSP framework.</li><li><span class="badge inno">Inno 2</span> <b>Theory:</b> Derive equivalent tightening forms and valid inequalities for the age constraints, sharply improving the LP bound.</li><li><span class="badge inno">Inno 3</span> <b>Algorithm:</b> Design a Benders-decomposition-based exact algorithm (master/sub) augmented with the C0/C1/C3/C* cutting-plane families for large instances.</li><li><span class="badge inno">Inno 4</span> <b>Empirics:</b> Build an instance library and ablation table, honestly reporting how the age penalty affects cost and plan structure (including unexpected/negative results).</li></ul>', html:true},
+    "b5pl":{zh:"创新点写“解决了什么别人没解决的问题”，不要写“用了深度学习”这种手段式描述。每条创新最好能对应第 3 节的某一条 Gap。",
+            en:"State innovations as “what unsolved problem you addressed”, not as tool-level descriptions like “used deep learning”. Each innovation should ideally map to a gap in Section 3.", html:false},
+    "b61ex":{zh:'<span class="elabel">示例 · 符号表（节选）</span><ul><li>$t\\in\\mathcal{T}$：周期集合；$i\\in\\mathcal{I}$：产品/批次；$d_t$：周期 $t$ 需求</li><li>$x_{it}$：周期 $t$ 生产产品 $i$ 的量；$y_{it}\\in\\{0,1\\}$：是否生产</li><li>$a_{it}$：批次 $i$ 在周期 $t$ 的“年龄”；$s_{it}$：库存持有量</li><li>参数：$C^{\\max}_t$ 产能，$\\alpha$ 单位年龄惩罚，$A^{\\max}$ 最大容许年龄</li></ul>',
+             en:'<span class="elabel">Example · Notation (excerpt)</span><ul><li>$t\\in\\mathcal{T}$: set of periods; $i\\in\\mathcal{I}$: product/batch; $d_t$: demand in period $t$</li><li>$x_{it}$: production quantity of product $i$ in period $t$; $y_{it}\\in\\{0,1\\}$: whether to produce</li><li>$a_{it}$: “age” of batch $i$ in period $t$; $s_{it}$: inventory level</li><li>Parameters: $C^{\\max}_t$ capacity, $\\alpha$ unit age penalty, $A^{\\max}$ maximum admissible age</li></ul>', html:true},
+    "b6tip":{zh:"组会讲解建议：先讲“为什么需要约束 (2)(3)”——这是相对于经典 CLSP 的<strong>唯一新增结构</strong>，也是方法核心。",
+             en:"Presentation tip: explain first “why constraints (2)(3) are needed”—this is the <strong>only new structure</strong> versus classic CLSP and the core of the method.", html:false},
+    "b63ex":{zh:'<span class="elabel">示例 · Benders 分解 + 切平面族</span><ul><li><b>主问题：</b>生产/年龄决策（整数+部分连续），接收子问题返回的 Benders 割；</li><li><b>子问题：</b>给定主问题解，校验年龄/库存可行性并返回对偶割；</li><li><b>增强：</b>叠加 C0（容量）、C1（单周期）、C3（年龄耦合）、C*（最优性）切平面族加速收敛。</li></ul>',
+             en:'<span class="elabel">Example · Benders decomposition + cutting planes</span><ul><li><b>Master problem:</b> production/age decisions (integer + partial continuous), receives Benders cuts from the subproblem;</li><li><b>Subproblem:</b> given the master solution, checks age/inventory feasibility and returns dual cuts;</li><li><b>Enhancement:</b> augment with C0 (capacity), C1 (single-period), C3 (age-coupling), C* (optimality) cutting-plane families to accelerate convergence.</li></ul>', html:true},
+    "b6pl":{zh:"若用机器学习/启发式，请在此给出“伪代码（algorithm2e 风格）+ 复杂度 + 为什么比基线好”三件套。",
+            en:"If using ML/heuristics, provide here the trio: “pseudocode (algorithm2e style) + complexity + why it beats the baseline”.", html:false},
+    "b7el":{zh:"示例 · 消融表（节选）", en:"Example · Ablation table (excerpt)", html:false},
+    "b7th":{zh:'<tr><th>配置</th><th>平均 GAP(%)</th><th>求解时间(s)</th><th>备注</th></tr>',
+            en:'<tr><th>Config</th><th>Avg GAP(%)</th><th>Time(s)</th><th>Note</th></tr>', html:true},
+    "b7tb":{zh:'<tr><td>Plain MILP (CBC)</td><td>—</td><td>超时(&gt;1000 bin)</td><td>CBC 大规模挂起</td></tr><tr><td>+ Benders</td><td>0.0</td><td>42</td><td>精确</td></tr><tr><td>+ C0/C1/C3</td><td>0.0</td><td>11</td><td>约 4× 加速</td></tr><tr><td>+ C*</td><td>0.0</td><td>7</td><td>最优性割</td></tr>',
+            en:'<tr><td>Plain MILP (CBC)</td><td>—</td><td>timeout (&gt;1000 bin)</td><td>CBC stalls at scale</td></tr><tr><td>+ Benders</td><td>0.0</td><td>42</td><td>exact</td></tr><tr><td>+ C0/C1/C3</td><td>0.0</td><td>11</td><td>≈ 4× speedup</td></tr><tr><td>+ C*</td><td>0.0</td><td>7</td><td>optimality cut</td></tr>', html:true},
+    "b7note":{zh:"诚实说明：在部分小规模实例中，最佳 FIFO 规则与精确解差距&lt;2%，说明年龄惩罚较小时简单规则已够用——这是非预期但重要的结论。",
+              en:"Honest note: on some small instances the best FIFO rule is within &lt;2% of the exact optimum, suggesting simple rules suffice when the age penalty is small—an unexpected yet important finding.", html:false},
+    "b7pl":{zh:"放 1–2 张核心图（收敛曲线 / 敏感性分析 / 对比柱状图，柱宽按真实数值成比例）。结论要诚实，包含负面结果。",
+            en:"Include 1–2 key figures (convergence curve / sensitivity analysis / comparison bar chart with widths proportional to true values). Be honest, including negative results.", html:false},
+    "b8lim":{zh:'<span class="elabel">示例 · 局限</span><ul><li>当前假设确定性需求，未考虑需求不确定性；</li><li>切平面族对极端年龄分布敏感，参数鲁棒性待研究。</li></ul>',
+             en:'<span class="elabel">Example · Limitations</span><ul><li>Currently assumes deterministic demand, ignoring demand uncertainty;</li><li>Cutting-plane families are sensitive to extreme age distributions; parameter robustness remains to study.</li></ul>', html:true},
+    "b8next":{zh:'<span class="elabel">示例 · 下一步</span><ul><li>扩展至随机需求下的两阶段 ALSP；</li><li>探索 RL 在跨布局自适应调度中的迁移（与郑煤机项目联动）。</li></ul>',
+              en:'<span class="elabel">Example · Next steps</span><ul><li>Extend to two-stage ALSP under stochastic demand;</li><li>Explore RL transfer to cross-layout adaptive scheduling (linked to the Zhengmeiji project).</li></ul>', html:true},
+    "b8pl":{zh:"组会常被问：“这方法在什么情况下会失效？”——主动讲局限，比被问到再答更显掌控力。",
+            en:"Groups often ask “when does this method fail?”—raising limitations proactively shows more command than waiting to be asked.", html:false},
+    "b9tip":{zh:"示例文献仅作排版示范，请替换为你真正引用、且组内可复现的文献；建议用 BibTeX 统一导出，避免格式错乱。",
+             en:"Example references are for layout only; replace with literature you actually cite and that is reproducible within the group; export uniformly via BibTeX to avoid format drift.", html:false},
+    "b10ul":{zh:'<li><input type="checkbox"> 30 秒电梯演讲能讲清“问题—方法—结论”</li><li><input type="checkbox"> Research Gap 有文献支撑，且每条对应一个创新点</li><li><input type="checkbox"> 核心方法能让听众“听明白为什么有效”，而非只放公式</li><li><input type="checkbox"> 实验结论诚实（含负面/非预期结果）</li><li><input type="checkbox"> 图表的柱宽/比例严格对应真实数值</li><li><input type="checkbox"> 参考文献格式统一、可追溯</li><li><input type="checkbox"> 主动说明局限与下一步，准备好被追问</li>',
+             en:'<li><input type="checkbox"> 30-second elevator pitch clarifies “problem–method–conclusion”</li><li><input type="checkbox"> Research gap is literature-backed and each maps to an innovation</li><li><input type="checkbox"> Methodology lets the audience understand “why it works”, not just formulas</li><li><input type="checkbox"> Experimental conclusions are honest (including negative/unexpected results)</li><li><input type="checkbox"> Bar widths/proportions strictly match true values</li><li><input type="checkbox"> References are uniformly formatted and traceable</li><li><input type="checkbox"> Limitations and next steps are raised proactively; ready for Q&A</li>', html:true},
+    "b10tip":{zh:"模板文件：本 HTML 可直接在浏览器打开汇报，也可导出 PDF。把蓝底示例框替换为你的内容、删除灰色占位框即可。",
+             en:"Template: open this HTML directly in a browser to present, or export to PDF. Replace the blue example boxes with your content and delete the gray placeholder boxes.", html:false},
+    "h321":{zh:"2.1 现实/理论背景", en:"2.1 Real / Theoretical Background", html:false},
+    "h61":{zh:"6.1 研究问题（Research Question）", en:"6.1 Research Question", html:false},
+    "h361":{zh:"7.1 模型：符号与假设", en:"7.1 Model: Notation & Assumptions", html:false},
+    "h362":{zh:"7.2 主模型（目标与关键约束）", en:"7.2 Main Model (Objective & Key Constraints)", html:false},
+    "h363":{zh:"7.3 求解算法", en:"7.3 Solution Algorithm", html:false}
+  };
+
+  function applyLang(lang, retypeset){
+    var mathEls = [];
+    for(var id in I18N){
+      var el = document.getElementById(id);
+      if(!el) continue;
+      var e = I18N[id]; var txt = e[lang];
+      if(e.html){ el.innerHTML = txt; if(txt.indexOf("$") > -1) mathEls.push(el); }
+      else { el.textContent = txt; }
+    }
+    var btns = document.querySelectorAll("#langToggle button");
+    btns.forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+    });
+    try{ localStorage.setItem("gm-lang", lang); }catch(err){}
+    if(retypeset && mathEls.length && window.MathJax && MathJax.typesetPromise){
+      try{ MathJax.typesetPromise(mathEls); }catch(err){}
+    }
+  }
+
+  (function(){
+    var toggle = document.getElementById("langToggle");
+    if(toggle){
+      toggle.addEventListener("click", function(e){
+        var b = e.target.closest("button");
+        if(!b) return;
+        applyLang(b.getAttribute("data-lang"), true);
+      });
+    }
+    var saved = "zh";
+    try{ saved = localStorage.getItem("gm-lang") || "zh"; }catch(e){}
+    applyLang(saved, false);
+  })();
+</script>
+</body>
+</html>
